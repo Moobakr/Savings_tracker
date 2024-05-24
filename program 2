@@ -1,0 +1,113 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+class Tracker
+{
+private:
+    char credit_card_number[16];
+    int income;
+    int duration;
+    int Target_Saving;
+    int number_of_commitments, number_of_living_expenses;
+    double commitments[100], living_expenses[100];
+    double total_commitments, total_living_expenses;
+    double x;
+
+public:
+    Tracker()
+    {
+        cout<<"Hello, Welcome to our app \nPlease Enter your 16 digit credit card number: ";
+        for(int i = 0; i < 16; i++)
+        {
+            cin>>credit_card_number[i];
+        }
+        cout<<endl<<endl;
+        getters();
+
+    }
+
+    void getters()
+    {
+        cout<<"Great now we can help you save money."<<endl<<endl;
+        cout<<"How much do you want to save: ";
+        cin>>Target_Saving;
+        cout<<"Great we will help you to save " << Target_Saving <<", don't worry but we need some information"<<endl<<endl;
+        cout<<"What is your income per month: ";
+        cin>>income;
+        cout<<"Great, How many commitments do you have: ";
+        cin>>number_of_commitments;
+        cout<<"Great, Now enter how much do you pay on every commitment: ";
+        for(int i = 0; i < number_of_commitments; i++)
+        {
+            cin>>commitments[i];
+        }
+        cout<<"Great, How many living expenses do you have: ";
+        cin>>number_of_living_expenses;
+        cout<<"Great, Now enter how much do you pay on every living expenses: ";
+        for(int i = 0; i < number_of_living_expenses; i++)
+        {
+            cin>>living_expenses[i];
+        }
+        cout<<endl<<endl;
+        calculations();
+    }
+
+    double commitments_total()
+    {
+        x = 0;
+        for(int i = 0; i < number_of_commitments; i++)
+        {
+            x = x + commitments[i];
+        }
+        return x;
+    }
+
+    double living_expenses_total()
+    {
+        x = 0;
+        for(int i = 0; i < number_of_living_expenses; i++)
+        {
+            x = x + living_expenses[i];
+        }
+        return x;
+    }
+
+    void calculations()
+    {
+        double commitments_totall = commitments_total();
+        double living_expenses_totall = living_expenses_total();
+        double remaining = (income - (commitments_totall + living_expenses_totall));
+
+
+        cout<<"Sooo, the remaining after calculations is "<< remaining <<endl<<endl;
+
+        double v = remaining / Target_Saving;
+        v = round(v) * 100;
+
+        int x = 0;
+        duration = 1;
+
+        while(x < Target_Saving)
+        {
+            x = v * duration;
+            duration++;
+            v+=5;
+        }
+        cout<<"After a long time trying to calculate it we found that you gonna save " << v << " per day"<<endl;
+
+
+    }
+
+};
+
+int main()
+{
+    Tracker ob;
+
+
+
+    return 0;
+}
